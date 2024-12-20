@@ -308,9 +308,8 @@ pub async fn send_invite(
         }
     }
 
-    let query_string = match query.query() {
-        None => err!("Failed to build invite URL query parameters"),
-        Some(query) => query,
+    let Some(query_string) = query.query() else {
+        err!("Failed to build invite URL query parameters")
     };
 
     let (subject, body_html, body_text) = get_text(
@@ -352,9 +351,8 @@ pub async fn send_emergency_access_invite(
             .append_pair("token", &encode_jwt(&claims));
     }
 
-    let query_string = match query.query() {
-        None => err!("Failed to build emergency invite URL query parameters"),
-        Some(query) => query,
+    let Some(query_string) = query.query() else {
+        err!("Failed to build emergency invite URL query parameters")
     };
 
     let (subject, body_html, body_text) = get_text(
